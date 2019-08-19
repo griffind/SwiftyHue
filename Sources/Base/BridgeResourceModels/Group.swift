@@ -108,5 +108,6 @@ extension Group: Hashable {
 }
 
 public func ==(lhs: Group, rhs: Group) -> Bool {
-    return lhs.identifier == rhs.identifier
+    return lhs.identifier == rhs.identifier &&
+        lhs.action == rhs.action
 }

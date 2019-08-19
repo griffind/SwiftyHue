@@ -122,5 +122,6 @@ extension Light: Hashable {
 }
 
 public func ==(lhs: Light, rhs: Light) -> Bool {
-    return lhs.identifier == rhs.identifier
+    return lhs.identifier == rhs.identifier &&
+        lhs.state == rhs.state
 }
