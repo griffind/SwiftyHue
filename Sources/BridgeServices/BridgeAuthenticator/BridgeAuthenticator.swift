@@ -16,6 +16,8 @@ public class BridgeAuthenticator {
     private let timeout: TimeInterval
 
     public weak var delegate: BridgeAuthenticatorDelegate?
+    
+    public var tag: Int?
 
     // convention for uniqueIdentifier format: "my_hue_app#iphone peter"
     public convenience init(bridge: HueBridge, uniqueIdentifier: String) {
