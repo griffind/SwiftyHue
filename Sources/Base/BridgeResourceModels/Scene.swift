@@ -48,6 +48,11 @@ public class PartialScene: BridgeResource, BridgeResourceDictGenerator {
         The name of this scene.
      */
     public let name: String
+    
+    /**
+        The name of the group
+     */
+    public let group: String
 
     /**
         The identifiers of the lights controlled by this scene.
@@ -90,6 +95,7 @@ public class PartialScene: BridgeResource, BridgeResourceDictGenerator {
         
         guard let identifier: String = "id" <~~ json,
             let name: String = "name" <~~ json,
+            let group: String = "group" <~~ json,
             let lightIdentifiers: [String] = "lights" <~~ json,
             let owner: String = "owner" <~~ json,
             let recycle: Bool = "recycle" <~~ json,
@@ -100,6 +106,7 @@ public class PartialScene: BridgeResource, BridgeResourceDictGenerator {
         
         self.identifier = identifier
         self.name = name
+        self.group = group
         self.lightIdentifiers = lightIdentifiers
         self.owner = owner
         self.recycle = recycle
@@ -119,6 +126,7 @@ public class PartialScene: BridgeResource, BridgeResourceDictGenerator {
         let json = jsonify([
             "id" ~~> identifier,
             "name" ~~> name,
+            "group" ~~> group,
             "lights" ~~> lightIdentifiers,
             "owner" ~~> owner,
             "recycle" ~~> recycle,
@@ -145,6 +153,7 @@ public func ==(lhs: PartialScene, rhs: PartialScene) -> Bool {
     
     return lhs.identifier == rhs.identifier &&
         lhs.name == rhs.name &&
+        lhs.group == rhs.group &&
         (lhs.lightIdentifiers ?? []) == (rhs.lightIdentifiers ?? []) &&
         lhs.owner == rhs.owner &&
         lhs.recycle == rhs.recycle &&
