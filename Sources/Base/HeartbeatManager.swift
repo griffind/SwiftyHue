@@ -33,6 +33,7 @@ public class HeartbeatManager {
     
     private var lastLocalConnectionNotificationPostTime: TimeInterval?
     private var lastNoLocalConnectionNotificationPostTime: TimeInterval?
+    var alamoFireManager: SessionManager?
 
     public init(bridgeAccesssConfig: BridgeAccessConfig, heartbeatProcessors: [HeartbeatProcessor]) {
         self.bridgeAccesssConfig = bridgeAccesssConfig
@@ -90,8 +91,12 @@ public class HeartbeatManager {
         let url = "http://\(bridgeAccesssConfig.ipAddress)/api/\(bridgeAccesssConfig.username)/\(resourceType.rawValue.lowercased())"
 
         print("Heartbeat Request", "\(url)")
-        
-        Alamofire.request(url).responseJSON { response in // method
+        let config = URLSessionConfiguration.default
+        config.timeoutIntervalForRequest = 5
+        config.timeoutIntervalForResource = 5
+        self.alamoFireManager = Alamofire.SessionManager(configuration: config)
+
+        self.alamoFireManager!.request(url).responseJSON { response in // method
             
             switch response.result {
             case .success:
